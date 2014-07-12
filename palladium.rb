@@ -6,8 +6,7 @@ def parse_path(path)
   data.delete("")
 
   {
-    :channel => data[0],
-    :event => data[1]
+    :channel => data[0]
   }
 end
 
@@ -15,7 +14,7 @@ EM.run do
 
   @channels = {}
 
-  EM::WebSocket.start(:host => "0.0.0.0", :port => "1234") do |ws|
+  EM::WebSocket.start(:host => "192.168.0.137", :port => "1234") do |ws|
     puts "WebSocket server starting"
 
     socket_data = nil
@@ -33,11 +32,10 @@ EM.run do
     ws.onmessage do |message|
       puts message
       message = JSON.parse(message) rescue {}
-      puts "Receiving a message from #{socket_data[:channel]}:#{socket_data[:event]}:"
+      puts "Receiving a message from #{socket_data[:channel]}"
 
       response = {
         :channel => socket_data[:channel],
-        :event => socket_data[:event],
         :data => message
       }
 

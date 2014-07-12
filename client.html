@@ -5,10 +5,12 @@
   <script type="text/javascript">
     var connection;
     window.onload = function() {
-      connection = new WebSocket('ws://0.0.0.0:1234/channel-2/event');
+      connection = new WebSocket('ws://192.168.0.137:1234/canal1');
 
       connection.onopen = function() {
         console.log("connected...");
+
+        connection.send(JSON.stringify({message: 'Mensaje de prueba'}));
       };
 
       connection.onclose = function() {
